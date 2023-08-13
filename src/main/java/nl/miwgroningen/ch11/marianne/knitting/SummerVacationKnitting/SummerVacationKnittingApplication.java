@@ -1,5 +1,8 @@
 package nl.miwgroningen.ch11.marianne.knitting.SummerVacationKnitting;
 
+import nl.miwgroningen.ch11.marianne.knitting.SummerVacationKnitting.model.KnittingCounter;
+import nl.miwgroningen.ch11.marianne.knitting.SummerVacationKnitting.repository.KnittingCounterRepository;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +17,13 @@ public class SummerVacationKnittingApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SummerVacationKnittingApplication.class, args);
+	}
+
+	@Bean
+	CommandLineRunner commandLineRunner(KnittingCounterRepository counterRepository) {
+		return args -> {
+			counterRepository.save(new KnittingCounter(null, 0, 8));
+		};
 	}
 
 	@Bean
