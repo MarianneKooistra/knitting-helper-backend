@@ -22,7 +22,8 @@ public class SummerVacationKnittingApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(KnittingCounterRepository counterRepository) {
 		return args -> {
-			counterRepository.save(new KnittingCounter(null, 0, 8));
+			counterRepository.save(new KnittingCounter(2L, "Filled In Test", 2, 8));
+			counterRepository.save(new KnittingCounter());
 		};
 	}
 

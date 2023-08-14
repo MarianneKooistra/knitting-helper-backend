@@ -8,6 +8,7 @@ import nl.miwgroningen.ch11.marianne.knitting.SummerVacationKnitting.service.Kni
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collection;
 
 /**
  * Gemaakt door Marianne Kooistra (me.kooistra@st.hanze.nl) op 13/08/2023
@@ -31,7 +32,13 @@ public class KnittingCounterServiceImplementation implements KnittingCounterServ
     }
 
     @Override
-    public KnittingCounter get(Long counterId) {
+    public Collection<KnittingCounter> getAllCounters() {
+        log.info("Getting the collection of all the counters");
+        return counterRepository.findAll();
+    }
+
+    @Override
+    public KnittingCounter getById(Long counterId) {
         log.info("Getting counter with id: {}", counterId);
         return counterRepository.findById(counterId).get();
     }

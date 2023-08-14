@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * URL mappings that handel interactions with the counter model/entity.
  *
@@ -18,15 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/counter")
 @RequiredArgsConstructor
 public class KnittingCounterRestController {
-    //I will need:
-    //get the counterNumber
-    //save a total
-    //a method that deletes current and makes a new one.
-
     private final KnittingCounterServiceImplementation counterServiceImplementation;
+
+    @GetMapping("/")
+    public Collection<KnittingCounter> allCounters() {
+        return counterServiceImplementation.getAllCounters();
+    }
 
     @GetMapping("/get/{counterId}")
     public KnittingCounter findCounterById(@PathVariable("counterId") Long counterId) {
-        return counterServiceImplementation.get(counterId);
+        return counterServiceImplementation.getById(counterId);
     }
 }
