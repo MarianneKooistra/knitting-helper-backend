@@ -20,16 +20,6 @@ import java.util.Collection;
 @Slf4j
 public class KnittingCounterServiceImplementation implements KnittingCounterService {
     private final KnittingCounterRepository counterRepository;
-    @Override
-    public KnittingCounter deleteAndCreate(Long counterId, KnittingCounter counter) {
-        //Find current counter and delete it.
-        counterRepository.deleteById(counterId);
-
-        //Create a new counter and save it.
-        log.info("Counter with id: {} has been removed. New counter: {}. id: {}",
-                counterId, counter.getCounterNumber() + " of " + counter.getCounterTotal(), counter.getCounterId());
-        return counterRepository.save(counter);
-    }
 
     @Override
     public Collection<KnittingCounter> getAllCounters() {
@@ -41,5 +31,19 @@ public class KnittingCounterServiceImplementation implements KnittingCounterServ
     public KnittingCounter getById(Long counterId) {
         log.info("Getting counter with id: {}", counterId);
         return counterRepository.findById(counterId).get();
+    }
+
+    @Override
+    public KnittingCounter create(KnittingCounter counter) {
+        log.info("New counter: {}. id: {}",
+                counter.getCounterNumber() + " of " + counter.getCounterTotal(), counter.getCounterId());
+        return counterRepository.save(counter);
+    }
+
+    @Override
+    public Boolean delete(Long counterId) {
+        log.info("Counter with id: {} has been removed.", counterId);
+        counterRepository.deleteById(counterId);
+        return Boolean.TRUE;
     }
 }
