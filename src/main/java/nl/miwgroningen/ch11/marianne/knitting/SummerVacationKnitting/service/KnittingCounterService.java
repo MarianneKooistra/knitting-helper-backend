@@ -13,4 +13,5 @@ public interface KnittingCounterService {
     KnittingCounter getById(Long counterId);
     KnittingCounter create(KnittingCounter counter);
     Boolean delete(Long counterId);
+    //TODO:update function, for only the counting number
 }

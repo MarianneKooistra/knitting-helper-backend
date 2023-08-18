@@ -22,12 +22,14 @@ public class KnittingWork {
     @GeneratedValue
     private Long workId;
 
-    private String name;
-
-    @Column(nullable = false)
-    private Integer rows;
-    private String rowPattern;
-
-    private Integer stitchesNumber;
-    private String stitchPattern;
+    //ToDo: This is what I started with, but working with the counter model was easier to start with.
+    // (will probably have use for it later.)
+//    private String name;
+//
+//    @Column(nullable = false)
+//    private Integer rows;
+//    private String rowPattern;
+//
+//    private Integer stitchesNumber;
+//    private String stitchPattern;
 }
