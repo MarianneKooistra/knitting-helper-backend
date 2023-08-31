@@ -12,6 +12,6 @@ public interface KnittingCounterService {
     Collection<KnittingCounter> getAllCounters();
     KnittingCounter getById(Long counterId);
     KnittingCounter create(KnittingCounter counter);
+    KnittingCounter count(KnittingCounter counter);
     Boolean delete(Long counterId);
-    //TODO:update function, for only the counting number
 }

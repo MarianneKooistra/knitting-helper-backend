@@ -35,6 +35,12 @@ public class KnittingCounterRestController {
         return this.counterServiceImplementation.create(counter);
     }
 
+    @PostMapping("/add/{counterId}")
+    public KnittingCounter addNumber(@PathVariable("counterId") Long counterId) {
+        KnittingCounter counter = findCounterById(counterId);
+        return this.counterServiceImplementation.count(counter);
+    }
+
     @DeleteMapping("/delete/{counterId}")
     public Boolean deleteCounter(@PathVariable("counterId") Long counterId) {
         return counterServiceImplementation.delete(counterId);

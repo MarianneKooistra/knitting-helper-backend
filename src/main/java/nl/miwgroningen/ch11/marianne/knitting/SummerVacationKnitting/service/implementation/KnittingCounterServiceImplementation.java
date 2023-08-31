@@ -41,6 +41,15 @@ public class KnittingCounterServiceImplementation implements KnittingCounterServ
     }
 
     @Override
+    public KnittingCounter count(KnittingCounter counter) {
+        int numberToIncrease = counter.getCounterNumber();
+        counter.setCounterNumber(numberToIncrease + 1);
+        log.info("{} (id: {}) from {}, to {} of {}",
+                counter.getCounterName(), counter.getCounterId(), numberToIncrease, counter.getCounterNumber(), counter.getCounterTotal());
+        return counterRepository.save(counter);
+    }
+
+    @Override
     public Boolean delete(Long counterId) {
         log.info("Counter with id: {} has been removed.", counterId);
         counterRepository.deleteById(counterId);
