@@ -2,7 +2,6 @@ package nl.miwgroningen.ch11.marianne.knitting.SummerVacationKnitting.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,9 +23,20 @@ public class KnittingCounter {
 
     private String counterName = "No name given";
     private Integer counterNumber = 0;
-    private Integer counterTotal = 0;
+    private Integer counterTotal = 1;
 
     public Integer numberLeft() {
         return counterTotal - counterNumber;
+    }
+
+    public Boolean counterDone() {
+        boolean finished;
+        if (counterNumber >= counterTotal) {
+            finished = true;
+        } else {
+            finished = false;
+        }
+
+        return finished;
     }
 }

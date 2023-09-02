@@ -42,10 +42,15 @@ public class KnittingCounterServiceImplementation implements KnittingCounterServ
 
     @Override
     public KnittingCounter count(KnittingCounter counter) {
-        int numberToIncrease = counter.getCounterNumber();
-        counter.setCounterNumber(numberToIncrease + 1);
-        log.info("{} (id: {}) from {}, to {} of {}",
-                counter.getCounterName(), counter.getCounterId(), numberToIncrease, counter.getCounterNumber(), counter.getCounterTotal());
+        if (counter.counterDone()) {
+            counter.setCounterNumber(0);
+            log.info("Counter is done and reset to 0");
+        } else {
+            counter.setCounterNumber(counter.getCounterNumber() + 1);
+            log.info("{} (id: {}) from {}, to {} of {}",
+                    counter.getCounterName(), counter.getCounterId(), counter.getCounterNumber(), counter.getCounterNumber(), counter.getCounterTotal());
+        }
+
         return counterRepository.save(counter);
     }
 
