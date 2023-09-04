@@ -46,18 +46,24 @@ public class KnittingCounterServiceImplementation implements KnittingCounterServ
             counter.setCounterNumber(0);
             log.info("Counter is done and reset to 0");
         } else {
-            counter.setCounterNumber(counter.getCounterNumber() + 1);
-            log.info("{} (id: {}) from {}, to {} of {}",
-                    counter.getCounterName(), counter.getCounterId(), counter.getCounterNumber(), counter.getCounterNumber(), counter.getCounterTotal());
+            int oldNumber = counter.getCounterNumber();
+            int newNumber = oldNumber + 1;
+            counter.setCounterNumber(newNumber);
+            log.info("Counter {} (id: {}) from {}, to {} of {}",
+                    counter.getCounterName(), counter.getCounterId(), oldNumber, newNumber, counter.getCounterTotal());
         }
 
         return counterRepository.save(counter);
     }
 
     @Override
-    public Boolean delete(Long counterId) {
-        log.info("Counter with id: {} has been removed.", counterId);
-        counterRepository.deleteById(counterId);
-        return Boolean.TRUE;
+    public KnittingCounter minus(KnittingCounter counter) {
+        int oldNumber = counter.getCounterNumber();
+        int newNumber = oldNumber - 1;
+        counter.setCounterNumber(newNumber);
+        log.info("Counter with id: {} has decreased from {}, to {} of {}",
+                counter.getCounterId(), oldNumber, counter.getCounterNumber(), counter.getCounterTotal());
+
+        return counterRepository.save(counter);
     }
 }

@@ -41,8 +41,9 @@ public class KnittingCounterRestController {
         return this.counterServiceImplementation.count(counter);
     }
 
-    @DeleteMapping("/delete/{counterId}")
-    public Boolean deleteCounter(@PathVariable("counterId") Long counterId) {
-        return counterServiceImplementation.delete(counterId);
+    @PostMapping("/subtract/{counterId}")
+    public KnittingCounter subtractNumber(@PathVariable("counterId") Long counterId) {
+        KnittingCounter counter = findCounterById(counterId);
+        return this.counterServiceImplementation.minus(counter);
     }
 }

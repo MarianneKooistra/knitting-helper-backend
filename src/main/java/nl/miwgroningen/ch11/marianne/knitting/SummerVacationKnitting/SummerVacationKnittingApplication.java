@@ -23,8 +23,8 @@ public class SummerVacationKnittingApplication {
 	CommandLineRunner commandLineRunner(KnittingCounterRepository counterRepository) {
 		return args -> {
 			counterRepository.save(new KnittingCounter(2L, "Scarf", 2, 26));
-			counterRepository.save(new KnittingCounter());
-			counterRepository.save(new KnittingCounter(3L, "Sweater sleeve", 0, 50));
+//			counterRepository.save(new KnittingCounter());
+//			counterRepository.save(new KnittingCounter(3L, "Sweater sleeve", 0, 50));
 
 		};
 	}
