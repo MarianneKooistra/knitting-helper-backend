@@ -15,7 +15,7 @@ import java.util.Collection;
  */
 
 @RestController
-@RequestMapping("/counter")
+@RequestMapping("api/counter")
 @RequiredArgsConstructor
 public class KnittingCounterRestController {
     private final KnittingCounterServiceImplementation counterServiceImplementation;
