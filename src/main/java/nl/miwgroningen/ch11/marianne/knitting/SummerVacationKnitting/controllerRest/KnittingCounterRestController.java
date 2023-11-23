@@ -2,11 +2,18 @@ package nl.miwgroningen.ch11.marianne.knitting.SummerVacationKnitting.controller
 
 import lombok.RequiredArgsConstructor;
 import nl.miwgroningen.ch11.marianne.knitting.SummerVacationKnitting.model.KnittingCounter;
+import nl.miwgroningen.ch11.marianne.knitting.SummerVacationKnitting.model.Response;
 import nl.miwgroningen.ch11.marianne.knitting.SummerVacationKnitting.service.implementation.KnittingCounterServiceImplementation;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Map;
+
+import static java.time.LocalDateTime.now;
 
 /**
  * URL mappings that handel interactions with the counter model/entity.
@@ -21,29 +28,57 @@ public class KnittingCounterRestController {
     private final KnittingCounterServiceImplementation counterServiceImplementation;
 
     @GetMapping("/")
-    public Collection<KnittingCounter> allCounters() {
-        return counterServiceImplementation.getAllCounters();
+    public ResponseEntity<Response> allCounters() {
+        return ResponseEntity.ok(Response.builder()
+                .timestamp(now())
+                .statusCode(HttpStatus.OK.value())
+                .status(HttpStatus.OK)
+                .message("All counters retrieved")
+                .data(Map.of("counters", counterServiceImplementation.getAllCounters()))
+                .build());
     }
 
     @GetMapping("/get/{counterId}")
-    public KnittingCounter findCounterById(@PathVariable("counterId") Long counterId) {
-        return counterServiceImplementation.getById(counterId);
+    public ResponseEntity<Response> findCounterById(@PathVariable("counterId") Long counterId) {
+        return ResponseEntity.ok(Response.builder()
+                .timestamp(now())
+                .statusCode(HttpStatus.OK.value())
+                .status(HttpStatus.OK)
+                .message("Counter with id " + counterId + " retrieved")
+                .data(Map.of("counter", counterServiceImplementation.getById(counterId)))
+                .build());
     }
 
     @PostMapping("/save")
-    public KnittingCounter createCounter(@RequestBody @Valid KnittingCounter counter) {
-        return this.counterServiceImplementation.create(counter);
+    public ResponseEntity<Response> createCounter(@RequestBody @Valid KnittingCounter counter) {
+        return ResponseEntity.ok(Response.builder()
+                .timestamp(now())
+                .statusCode(HttpStatus.OK.value())
+                .status(HttpStatus.OK)
+                .message("Counter has been created or updated")
+                .data(Map.of("counter", counterServiceImplementation.create(counter)))
+                .build());
     }
 
     @PostMapping("/add/{counterId}")
-    public KnittingCounter addNumber(@PathVariable("counterId") Long counterId) {
-        KnittingCounter counter = findCounterById(counterId);
-        return this.counterServiceImplementation.count(counter);
+    public ResponseEntity<Response> addNumber(@PathVariable("counterId") Long counterId) {
+        return ResponseEntity.ok(Response.builder()
+                .timestamp(now())
+                .statusCode(HttpStatus.OK.value())
+                .status(HttpStatus.OK)
+                .message("Counter with id " + counterId + " has been increased by 1")
+                .data(Map.of("counter", counterServiceImplementation.count(counterId)))
+                .build());
     }
 
     @PostMapping("/subtract/{counterId}")
-    public KnittingCounter subtractNumber(@PathVariable("counterId") Long counterId) {
-        KnittingCounter counter = findCounterById(counterId);
-        return this.counterServiceImplementation.minus(counter);
+    public ResponseEntity<Response> subtractNumber(@PathVariable("counterId") Long counterId) {
+        return ResponseEntity.ok(Response.builder()
+                .timestamp(now())
+                .statusCode(HttpStatus.OK.value())
+                .status(HttpStatus.OK)
+                .message("Counter with id " + counterId + " has been decreased by 1")
+                .data(Map.of("counter", counterServiceImplementation.minus(counterId)))
+                .build());
     }
 }

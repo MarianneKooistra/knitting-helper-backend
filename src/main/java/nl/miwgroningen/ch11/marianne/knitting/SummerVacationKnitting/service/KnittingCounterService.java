@@ -12,6 +12,6 @@ public interface KnittingCounterService {
     Collection<KnittingCounter> getAllCounters();
     KnittingCounter getById(Long counterId);
     KnittingCounter create(KnittingCounter counter);
-    KnittingCounter count(KnittingCounter counter);
-    KnittingCounter minus(KnittingCounter counter);
+    KnittingCounter count(Long counterId);
+    KnittingCounter minus(Long counterId);
 }
